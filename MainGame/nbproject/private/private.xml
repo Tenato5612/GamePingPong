@@ -3,15 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/belpg/Documents/NetBeansProjects/MainGame/src/maingame/KeyHandler.java</file>
-            <file>file:/C:/Users/belpg/Documents/NetBeansProjects/MainGame/src/entity/Player2.java</file>
-            <file>file:/C:/Users/belpg/Documents/NetBeansProjects/MainGame/src/entity/Point2.java</file>
-            <file>file:/C:/Users/belpg/Documents/NetBeansProjects/MainGame/src/entity/Player1.java</file>
-            <file>file:/C:/Users/belpg/Documents/NetBeansProjects/MainGame/src/maingame/MainGame.java</file>
-            <file>file:/C:/Users/belpg/Documents/NetBeansProjects/MainGame/src/entity/Point1.java</file>
-            <file>file:/C:/Users/belpg/Documents/NetBeansProjects/MainGame/src/maingame/GamePanel.java</file>
-            <file>file:/C:/Users/belpg/Documents/NetBeansProjects/MainGame/src/entity/Ball.java</file>
-            <file>file:/C:/Users/belpg/Documents/NetBeansProjects/MainGame/src/entity/Entity.java</file>
+            <file>file:/C:/Users/belpg/Documents/NetBeansProjects/GamePingPong/MainGame/src/maingame/MainGame.java</file>
+            <file>file:/C:/Users/belpg/Documents/NetBeansProjects/GamePingPong/MainGame/src/entity/Entity.java</file>
+            <file>file:/C:/Users/belpg/Documents/NetBeansProjects/GamePingPong/MainGame/src/entity/Ball.java</file>
         </group>
     </open-files>
 </project-private>

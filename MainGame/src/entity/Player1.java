@@ -10,16 +10,13 @@ import maingame.KeyHandler;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-
-import javax.swing.JLabel;
 /**
  *
  * @author belpg
  */
 public class Player1 extends Entity{
     GamePanel gp;
-    KeyHandler keyH;   
-    JLabel point1 = new JLabel("sim");
+    KeyHandler keyH;       
     
     public Player1(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
@@ -40,9 +37,15 @@ public class Player1 extends Entity{
     
     public void update(){
         if(keyH.upPressed == true){
-            y -= speed;
+            if(y < 0){            
+            } else{            
+               y -= speed;
+            }
         } else if(keyH.downPressed == true){
-            y += speed;
+            if(y > gp.screenHeight - gp.pDimensionHeight){            
+            } else{
+                y += speed;
+            }            
         }
         solidArea.x = x;
         solidArea.y = y;

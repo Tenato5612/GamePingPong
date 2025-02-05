@@ -9,6 +9,9 @@ import maingame.GamePanel;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.Random;
+
+
 /**
  *
  * @author belpg
@@ -17,6 +20,8 @@ public final class Ball extends Entity{
     GamePanel gp;    
     Player1 p1;    
     Player2 p2;
+    Random random = new Random(-5);
+    int spawnRng = 1;
     public Ball(GamePanel gp, Player1 p1, Player2 p2){
         this.gp = gp;        
         this.p1 = p1;
@@ -29,14 +34,21 @@ public final class Ball extends Entity{
     
     public void setDefaultValues(){
         y = 262;
-        x = 400;
+        x = 400;        
+        indRng = 0;        
+        nrgBall = random.nextInt(11) - 5;        
         speedY = 5;
         speedX = 3;
         solidArea.x = x;
         solidArea.y = y;
     }        
     
-    public void moveBall(){        
+    public void moveBall(){ 
+        if(indRng == 1){
+            nrgBall = random.nextBoolean() ? 3 : -3;  
+            speedX = nrgBall;            
+            indRng = 0;
+        }
         x += speedX;
         y += speedY;
         
@@ -44,15 +56,19 @@ public final class Ball extends Entity{
             speedY = -speedY;
         }
         if(x <= 0){
-            x = 355;        
+            x = 400;        
             speedX = 3;
             pt2++;
+            indRng = 1;
+            countSpeed = 0;
         }
         
         if(x >= gp.screenWidth - gp.bDimensionWidth){
-            x = 355;        
+            x = 400;        
             speedX = 3;
             pt1++;
+            indRng = 1;
+            countSpeed = 0;
         }
     }
     
@@ -69,7 +85,7 @@ public final class Ball extends Entity{
            solidArea.y + (p1.solidArea.height - 150) > p1.solidArea.y){              
             speedX = -speedX;            
             countSpeed++;
-            if(countSpeed == 10){
+            if(countSpeed == 5){
                 countSpeed = 0;
                 speedX++;
             }
@@ -81,9 +97,14 @@ public final class Ball extends Entity{
            solidArea.y + (p2.solidArea.height - 150) > p2.solidArea.y){
             speedX = -speedX;
             countSpeed++;
-            if(countSpeed == 10){
+            if(countSpeed == 5){
                 countSpeed = 0;
-                speedX++;
+                if(speedX < 0){
+                    speedX--;
+                } else{
+                    speedX++;
+                }
+                
             }
         }        
     }
@@ -92,7 +113,9 @@ public final class Ball extends Entity{
         g2.setColor(Color.WHITE);
         g2.fillOval(x, y, gp.bDimensionWidth, gp.bDimensionHeight);     
         
-        System.out.println("Speed: " + speedX);        
+        
+        System.out.println("speed: " + speedX);
+        System.out.println("Count: " + countSpeed);
     }
     
 }

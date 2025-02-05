@@ -11,8 +11,9 @@ import java.awt.Rectangle;
  * @author belpg
  */
 public class Entity {
-    public int x;
-    public int y;
+    public int x, y;    
+    public int nrgBall;
+    public int indRng;
     public int speed = 4;
     public int pt1, pt2;
     public int pt;

@@ -37,9 +37,15 @@ public class Player2 extends Entity{
     
     public void update(){
         if(keyH.setUpPressed == true){
-            y -= speed;
+            if(y < 0){            
+            } else{            
+               y -= speed;
+            }
         } else if(keyH.setDownPressed == true){
-            y += speed;
+            if(y > gp.screenHeight - gp.pDimensionHeight){            
+            } else{
+                y += speed;
+            }
         }
         
         solidArea.x = x;
