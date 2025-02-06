@@ -112,10 +112,6 @@ public final class Ball extends Entity{
     public void draw(Graphics2D g2){
         g2.setColor(Color.WHITE);
         g2.fillOval(x, y, gp.bDimensionWidth, gp.bDimensionHeight);     
-        
-        
-        System.out.println("speed: " + speedX);
-        System.out.println("Count: " + countSpeed);
     }
     
 }
