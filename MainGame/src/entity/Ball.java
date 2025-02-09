@@ -20,12 +20,14 @@ public final class Ball extends Entity{
     GamePanel gp;    
     Player1 p1;    
     Player2 p2;
+    Bot bot;
     Random random = new Random(-5);
     int spawnRng = 1;
-    public Ball(GamePanel gp, Player1 p1, Player2 p2){
+    public Ball(GamePanel gp, Player1 p1, Player2 p2, Bot bot){
         this.gp = gp;        
         this.p1 = p1;
         this.p2 = p2;
+        this.bot = bot;
         
         Rectangle solidArea = new Rectangle(0, 0, gp.bDimensionWidth, gp.bDimensionHeight);
         
@@ -42,6 +44,19 @@ public final class Ball extends Entity{
         solidArea.x = x;
         solidArea.y = y;
     }        
+    
+    public void resetPos(){
+        x = 400;
+        y = 262;
+        speedX = 3;
+        pt1 = 0;
+        pt2 = 0;
+        indRng = 0;        
+        nrgBall = random.nextInt(11) - 5;   
+        countSpeed = 0;
+        defaultX = x;
+        defaultY = y;
+    }
     
     public void moveBall(){ 
         if(indRng == 1){
@@ -89,24 +104,50 @@ public final class Ball extends Entity{
                 countSpeed = 0;
                 speedX++;
             }
+        }                
+        
+        if(gp.stateMode == 1){
+            if(solidArea.x < p2.solidArea.x + p2.solidArea.width &&
+               solidArea.x + p2.solidArea.width + 25 > p2.solidArea.x && 
+               solidArea.y < p2.solidArea.y + p2.solidArea.height &&
+               solidArea.y + (p2.solidArea.height - 150) > p2.solidArea.y){
+                speedX = -speedX;
+                countSpeed++;
+                if(countSpeed == 5){
+                     countSpeed = 0;
+                     if(speedX < 0){
+                         speedX--;
+                    } else{
+                         speedX++;
+                    }
+                }
+            }   
         }
         
-        if(solidArea.x < p2.solidArea.x + p2.solidArea.width &&
-           solidArea.x + p2.solidArea.width + 25 > p2.solidArea.x && 
-           solidArea.y < p2.solidArea.y + p2.solidArea.height &&
-           solidArea.y + (p2.solidArea.height - 150) > p2.solidArea.y){
-            speedX = -speedX;
-            countSpeed++;
-            if(countSpeed == 5){
-                countSpeed = 0;
-                if(speedX < 0){
-                    speedX--;
-                } else{
-                    speedX++;
-                }
+        /*Bug in "stateMode", solidArea this have problem because this.bot is null*/
+        /*
+        
+        if(gp.stateMode == 2){
+            if(solidArea.x < bot.solidArea.x + bot.solidArea.width &&
+               solidArea.x + bot.solidArea.width + 25 > bot.solidArea.x && 
+               solidArea.y < bot.solidArea.y + bot.solidArea.height &&
+               solidArea.y + (bot.solidArea.height - 150) > bot.solidArea.y){
+                speedX = -speedX;
+                countSpeed++;
+                if(countSpeed == 5){
+                    countSpeed = 0;
+                    if(speedX < 0){
+                        speedX--;
+                    } else{
+                        speedX++;
+                    }
                 
-            }
-        }        
+                }
+            } 
+        }
+        */
+
+  
     }
 
     public void draw(Graphics2D g2){

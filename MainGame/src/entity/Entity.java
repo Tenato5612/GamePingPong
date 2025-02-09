@@ -18,7 +18,9 @@ public class Entity {
     public int pt1, pt2;
     public int pt;
     public int speedX, speedY;
+    public int defaultX, defaultY;
     public Rectangle solidArea = new Rectangle();      
     public int countSpeed = 0;
     public int spawnTimer = 50;
+    public int oneClick = 0;
 }

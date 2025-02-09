@@ -22,8 +22,8 @@ public class MainGame {
         window.setResizable(false);
         window.setTitle("Ping Pong");
         
-        GamePanel gp = new GamePanel();
-        window.add(gp);                
+        GamePanel gp = new GamePanel();    
+        window.add(gp);                        
         
         window.pack();
         

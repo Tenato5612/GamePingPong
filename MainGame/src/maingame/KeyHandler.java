@@ -15,6 +15,8 @@ public class KeyHandler implements KeyListener{
 
     public Boolean upPressed = false, downPressed = false, leftPressed = false, rightPressed = false;
     public Boolean setUpPressed = false, setDownPressed = false, setLeftPressed = false, setRightPressed = false;
+    public Boolean escPressed = false, enterPressed = false;
+    public Boolean pvpPressed = false, botPressed = false;
     
     @Override
     public void keyTyped(KeyEvent e) {
@@ -31,7 +33,7 @@ public class KeyHandler implements KeyListener{
         if(code == KeyEvent.VK_S){
             downPressed = true;
         }
-
+        
         if(code == KeyEvent.VK_UP){
             setUpPressed = true;
         }        
@@ -39,6 +41,20 @@ public class KeyHandler implements KeyListener{
             setDownPressed = true;
         }
 
+        if(code == KeyEvent.VK_ENTER){
+            enterPressed = true;
+        }        
+        if(code == KeyEvent.VK_ESCAPE){
+            escPressed = true;
+        }
+        
+        if(code == KeyEvent.VK_1){
+            pvpPressed = true;
+        }        
+        if(code == KeyEvent.VK_2){
+            botPressed = true;
+        }
+        
     }
 
     @Override
@@ -51,7 +67,6 @@ public class KeyHandler implements KeyListener{
         if(code == KeyEvent.VK_S){
             downPressed = false;
         }
-
         
         if(code == KeyEvent.VK_UP){
             setUpPressed = false;
@@ -60,5 +75,18 @@ public class KeyHandler implements KeyListener{
             setDownPressed = false;
         }
 
+        if(code == KeyEvent.VK_ENTER){
+            enterPressed = false;
+        }        
+        if(code == KeyEvent.VK_ESCAPE){
+            escPressed = false;
+        }
+        
+        if(code == KeyEvent.VK_1){
+            pvpPressed = false;
+        }                
+        if(code == KeyEvent.VK_2){
+            botPressed = false;
+        }
     }
 }
