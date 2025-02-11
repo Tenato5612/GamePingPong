@@ -42,29 +42,35 @@ public class Bot extends Entity{
         defaultY = y;
     }
     
-    public void update(){
-        if(ball.y > y){
+    public void update(){        
+        if(y < ball.getY()){
             y += speed;
         }
-        if(ball.y < y){
-            y -= speed + 2;
+        
+        if(y > ball.getY()){
+            y -= speed;
         }
         
-        if(y < 0){            
-        
+        if(y < 0){                    
         } else{            
             y -= speed;
         }
         
         if(y > gp.screenHeight - gp.pDimensionHeight){            
-            } else{
-                y += speed;
-            }
+        } else{
+            y += speed;
+        }        
+        
+        solidArea.x = x;
+        solidArea.y = y; 
     }
     
     public void draw(Graphics2D g2){
         g2.setColor(Color.RED);
-        g2.fillRect(x, y, gp.pDimensionWidth, gp.pDimensionHeight);        
+        g2.fillRect(x, y, gp.pDimensionWidth, gp.pDimensionHeight); 
+        
+        System.out.println("bot Y: " + y);
+        System.out.println("Ball y: " + ball.getY());
     }
     
 }

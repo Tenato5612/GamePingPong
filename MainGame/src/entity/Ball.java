@@ -23,6 +23,7 @@ public final class Ball extends Entity{
     Bot bot;
     Random random = new Random(-5);
     int spawnRng = 1;
+    
     public Ball(GamePanel gp, Player1 p1, Player2 p2, Bot bot){
         this.gp = gp;        
         this.p1 = p1;
@@ -87,6 +88,14 @@ public final class Ball extends Entity{
         }
     }
     
+    public int getY(){
+        y += speedY;
+                if(y <= 0 || y >= gp.screenHeight - gp.bDimensionHeight){
+            speedY = -speedY;
+        }
+        return y;
+    }
+    
     public void colisionCheck(){
         solidArea.x = x;
         solidArea.y = y;
@@ -125,7 +134,7 @@ public final class Ball extends Entity{
         }
         
         /*Bug in "stateMode", solidArea this have problem because this.bot is null*/
-        /*
+        
         
         if(gp.stateMode == 2){
             if(solidArea.x < bot.solidArea.x + bot.solidArea.width &&
@@ -145,7 +154,7 @@ public final class Ball extends Entity{
                 }
             } 
         }
-        */
+        
 
   
     }

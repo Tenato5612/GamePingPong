@@ -62,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.p2 = new Player2(this, keyH);  
         this.ball = new Ball(this, p1, p2, bot);
         this.bot = new Bot(this, ball);
+        this.ball = new Ball(this, p1, p2, bot);        
         this.point1 = new Point1(this, ball);
         this.point2 = new Point2(this, ball);
         this.sg = new StartGame(this, keyH);
