@@ -96,7 +96,10 @@ public class GamePanel extends JPanel implements Runnable{
             }
             
             if(time > 1000000000){
+                /*
                 System.out.println("Fps: " + drawCount);
+                */
+                
                 drawCount = 0;
                 time = 0;
             }                                                  

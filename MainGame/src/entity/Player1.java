@@ -30,7 +30,6 @@ public class Player1 extends Entity{
     public void setDefaultValues(){
         x = 140;
         y = 192;   
-
         
         solidArea.x = x;
         solidArea.y = y;

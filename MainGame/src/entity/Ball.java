@@ -21,9 +21,8 @@ public final class Ball extends Entity{
     Player1 p1;    
     Player2 p2;
     Bot bot;
-    Random random = new Random(-5);
-    int spawnRng = 1;
-    
+    Random random = new Random(-5);       
+    int stop = 0;
     public Ball(GamePanel gp, Player1 p1, Player2 p2, Bot bot){
         this.gp = gp;        
         this.p1 = p1;
@@ -42,6 +41,13 @@ public final class Ball extends Entity{
         nrgBall = random.nextInt(11) - 5;        
         speedY = 5;
         speedX = 3;
+        /*
+        y = 5
+        x = 3
+        */
+        
+
+        
         solidArea.x = x;
         solidArea.y = y;
     }        
@@ -65,6 +71,7 @@ public final class Ball extends Entity{
             speedX = nrgBall;            
             indRng = 0;
         }
+        
         x += speedX;
         y += speedY;
         
@@ -72,15 +79,17 @@ public final class Ball extends Entity{
             speedY = -speedY;
         }
         if(x <= 0){
-            x = 400;        
-            speedX = 3;
+            x = 400;      
+            y = 262;
+            speedX = 3;            
             pt2++;
             indRng = 1;
             countSpeed = 0;
         }
         
         if(x >= gp.screenWidth - gp.bDimensionWidth){
-            x = 400;        
+            x = 400;  
+            y = 262;
             speedX = 3;
             pt1++;
             indRng = 1;
@@ -88,12 +97,36 @@ public final class Ball extends Entity{
         }
     }
     
-    public int getY(){
+    public void moveGetY(){
         y += speedY;
-                if(y <= 0 || y >= gp.screenHeight - gp.bDimensionHeight){
+        if(y <= 0 || y >= gp.screenHeight - gp.bDimensionHeight){
             speedY = -speedY;
+        }        
+    }
+
+    public int moveY(){
+        int centerY = 262;        
+        if(moveY < centerY && stop == 0){
+            moveY--;
         }
-        return y;
+        
+        if(moveY <= -52){            
+            stop = 1;
+        }
+        
+        if(moveY < centerY && stop == 1){
+            moveY++;           
+        }
+        
+        if(moveY > 58){
+            stop = 2;
+        }
+        
+        if(stop == 2){
+            moveY--;            
+        }
+        
+        return moveY;
     }
     
     public void colisionCheck(){
@@ -107,7 +140,9 @@ public final class Ball extends Entity{
            solidArea.x + p1.solidArea.width > p1.solidArea.x && 
            solidArea.y < p1.solidArea.y + p1.solidArea.height &&
            solidArea.y + (p1.solidArea.height - 150) > p1.solidArea.y){              
-            speedX = -speedX;            
+            speedX = -speedX;    
+            speedY = random.nextInt(5, 10);
+            System.out.println("speedy: " + speedY);
             countSpeed++;
             if(countSpeed == 5){
                 countSpeed = 0;
@@ -121,6 +156,8 @@ public final class Ball extends Entity{
                solidArea.y < p2.solidArea.y + p2.solidArea.height &&
                solidArea.y + (p2.solidArea.height - 150) > p2.solidArea.y){
                 speedX = -speedX;
+                            speedY = random.nextInt(5, 10);
+            System.out.println("speedy: " + speedY);
                 countSpeed++;
                 if(countSpeed == 5){
                      countSpeed = 0;
@@ -131,10 +168,7 @@ public final class Ball extends Entity{
                     }
                 }
             }   
-        }
-        
-        /*Bug in "stateMode", solidArea this have problem because this.bot is null*/
-        
+        }               
         
         if(gp.stateMode == 2){
             if(solidArea.x < bot.solidArea.x + bot.solidArea.width &&
@@ -161,7 +195,8 @@ public final class Ball extends Entity{
 
     public void draw(Graphics2D g2){
         g2.setColor(Color.WHITE);
-        g2.fillOval(x, y, gp.bDimensionWidth, gp.bDimensionHeight);     
+        g2.fillOval(x, y, gp.bDimensionWidth, gp.bDimensionHeight);
+        System.out.println("speedX:" + speedX);
     }
     
 }

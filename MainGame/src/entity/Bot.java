@@ -15,7 +15,7 @@ import java.awt.Rectangle;
  */
 public class Bot extends Entity{
     GamePanel gp;
-    Ball ball;
+    Ball ball;           
     
     public Bot(GamePanel gp, Ball ball){
         this.gp = gp;        
@@ -42,17 +42,18 @@ public class Bot extends Entity{
         defaultY = y;
     }
     
-    public void update(){        
-        if(y < ball.getY()){
-            y += speed;
+    public void update(){            
+        
+        if(ball.moveY <= 5){
+            y += speed;           
         }
         
-        if(y > ball.getY()){
-            y -= speed;
-        }
+        if(ball.moveY >= -10){
+            y -= speed;                                                                
+        }       
         
         if(y < 0){                    
-        } else{            
+        } else{
             y -= speed;
         }
         
@@ -68,9 +69,9 @@ public class Bot extends Entity{
     public void draw(Graphics2D g2){
         g2.setColor(Color.RED);
         g2.fillRect(x, y, gp.pDimensionWidth, gp.pDimensionHeight); 
-        
-        System.out.println("bot Y: " + y);
-        System.out.println("Ball y: " + ball.getY());
+
+        System.out.println("y" + ball.moveY());
+
     }
     
 }
