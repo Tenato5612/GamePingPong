@@ -38,11 +38,11 @@ public class GamePanel extends JPanel implements Runnable{
     Point1 point1;
     Point2 point2;
     StartGame sg;
-    public final int pDimensionWidth = tileSize - 25;
-    public final int pDimensionHeight = tileSize * 4;
+    public final double pDimensionWidth = tileSize - 25;
+    public final double pDimensionHeight = tileSize * 4;
     Ball ball;
-    public final int bDimensionHeight = tileSize;
-    public final int bDimensionWidth = tileSize;
+    public final double bDimensionHeight = tileSize;
+    public final double bDimensionWidth = tileSize;
     KeyHandler keyH = new KeyHandler();     
     
     int stateGame = 0;
@@ -60,9 +60,9 @@ public class GamePanel extends JPanel implements Runnable{
         
         this.p1 = new Player1(this, keyH);
         this.p2 = new Player2(this, keyH);  
+        this.bot = new Bot(this, ball);
         this.ball = new Ball(this, p1, p2, bot);
         this.bot = new Bot(this, ball);
-        this.ball = new Ball(this, p1, p2, bot);        
         this.point1 = new Point1(this, ball);
         this.point2 = new Point2(this, ball);
         this.sg = new StartGame(this, keyH);
@@ -88,7 +88,7 @@ public class GamePanel extends JPanel implements Runnable{
             delta += (currentTime - lastTime) / interval;
             time += (currentTime - lastTime);
             lastTime = currentTime;
-            if(delta >= 1){
+            if(delta >= 1){               
                 update();
                 repaint();
                 delta--;
@@ -96,10 +96,7 @@ public class GamePanel extends JPanel implements Runnable{
             }
             
             if(time > 1000000000){
-                /*
                 System.out.println("Fps: " + drawCount);
-                */
-                
                 drawCount = 0;
                 time = 0;
             }                                                  
@@ -142,8 +139,8 @@ public class GamePanel extends JPanel implements Runnable{
             }
             ball.draw(g2);   
 
-            point1.draw(g2);
-            point2.draw(g2);
+            //point1.draw(g2);
+            //point2.draw(g2);
 
             g2.dispose();    
         }       

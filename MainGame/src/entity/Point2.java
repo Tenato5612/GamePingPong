@@ -34,7 +34,7 @@ public class Point2 extends Entity{
         Font font = new Font("Arial", Font.PLAIN, 30);
         g2.setFont(font);
         g2.setColor(Color.WHITE);
-        g2.drawString(Integer.toString(ball.pt2), x, y);
+        g2.drawString(ball.pt2S, (int)x, (int)y);
 
     }
 }

@@ -17,9 +17,9 @@ public class StartGame extends Entity{
     GamePanel gp;
     KeyHandler keyH;
     
-    int multPositionX = x + 270;
-    int choosePositionY = y + 380;
-    int singPositionX = x + 535;
+    int multPositionX = (int) (x + 270);
+    int choosePositionY = (int) (y + 380);
+    int singPositionX = (int) (x + 535);
     String wel = "Ping Pong";
     String multiplayer = "Multiplayer";    
     Font choose = new Font("Arial", Font.PLAIN, 25);
@@ -43,7 +43,7 @@ public class StartGame extends Entity{
         
         g2.setFont(choose);
         g2.setColor(Color.WHITE);
-        g2.drawString("Single", singPositionX, y + 280);
+        g2.drawString("Single", singPositionX, (float) (y + 280));
     }    
     
     public void ClickEvent(){
@@ -77,24 +77,24 @@ public class StartGame extends Entity{
             Font startFont = new Font("Arial", Font.PLAIN, 25);
             g2.setFont(startFont);
             g2.setColor(Color.WHITE);
-            g2.drawString("PRESS ENTER TO PLAY", x - 100, y + 200);
+            g2.drawString("PRESS ENTER TO PLAY", (float) x - 100, (float) y + 200);
 
             Font titleFont = new Font("Arial", Font.PLAIN, 50);
             g2.setFont(titleFont);
             g2.setColor(Color.WHITE);
-            g2.drawString(wel, x - 80, y + 150);
+            g2.drawString(wel, (float) x - 80, (float) y + 150);
         }                
         
         if(gp.stateGame == 1){
             Font playerFont = new Font("Arial", Font.PLAIN, 50);
             g2.setFont(playerFont);
             g2.setColor(Color.WHITE);
-            g2.drawString("Choose mode", x - 115, y + 190);
+            g2.drawString("Choose mode", (float) x - 115, (float) y + 190);
             
             Font descF = new Font("Arial", Font.PLAIN, 20);
             g2.setFont(descF);
             g2.setColor(Color.WHITE);
-            g2.drawString("press 1 to multiplayer, or 2 to singleplayer", x - 140, y + 220);
+            g2.drawString("press 1 to multiplayer, or 2 to singleplayer", (float) x - 140, (float) y + 220);
             
             Choose(g2);
         }                     

@@ -5,24 +5,24 @@
 package entity;
 
 import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 
 /**
  *
  * @author belpg
  */
 public class Entity {
-    public int x, y, targetX, targetY;    
-    public int nrgBall;
-    public int indRng;
-    public int speed = 4;
-    public int moveY, reverseY;
-    
-    public int pt1, pt2;
-    public int pt;
-    public int speedX, speedY;
-    public int defaultX, defaultY;
-    public Rectangle solidArea = new Rectangle();      
-    public int countSpeed = 0;
-    public int spawnTimer = 50;
-    public int oneClick = 0;
+    public double x, y;    
+    public double nrgBall;
+    public double indRng;
+    public double speed = 4;
+    public float pt1, pt2;
+    public String pt1S, pt2S;
+    public double pt;
+    public double speedX, speedY;
+    public double defaultX, defaultY;
+    public Rectangle2D solidArea = new Rectangle2D.Double();
+    public double countSpeed = 0;
+    public double spawnTimer = 50;
+    public double oneClick = 0;
 }

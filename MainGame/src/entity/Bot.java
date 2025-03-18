@@ -9,29 +9,28 @@ import maingame.GamePanel;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 /**
  *
  * @author belpg
  */
 public class Bot extends Entity{
     GamePanel gp;
-    Ball ball;           
+    Ball ball;
     
     public Bot(GamePanel gp, Ball ball){
         this.gp = gp;        
         this.ball = ball;
         
-        solidArea = new Rectangle(0, 0, gp.pDimensionWidth, gp.pDimensionHeight);
+        solidArea = new Rectangle2D.Double(0, 0, gp.pDimensionWidth, gp.pDimensionHeight);
         
         setDefaultValues();
     }
     
     public void setDefaultValues(){
         x = 714;
-        y = 192;       
-        
-        solidArea.x = x;
-        solidArea.y = y;
+        y = 192;  
+        speed = 6;
     }
     
     public void resetPos(){
@@ -42,36 +41,34 @@ public class Bot extends Entity{
         defaultY = y;
     }
     
-    public void update(){            
-        
-        if(ball.moveY <= 5){
-            y += speed;           
+    public void setColision(){
+        solidArea.setFrame(x, y, gp.pDimensionWidth, gp.pDimensionHeight);
+    }
+    
+    public void update(){
+        if(ball.y > y){
+            y += speed;
+        }
+        if(ball.y < y){
+            y -= speed;
         }
         
-        if(ball.moveY >= -10){
-            y -= speed;                                                                
-        }       
+        if(y < 0){            
         
-        if(y < 0){                    
-        } else{
+        } else{            
             y -= speed;
         }
         
         if(y > gp.screenHeight - gp.pDimensionHeight){            
-        } else{
-            y += speed;
-        }        
-        
-        solidArea.x = x;
-        solidArea.y = y; 
+            } else{
+                y += speed;
+            }
     }
     
     public void draw(Graphics2D g2){
+        Rectangle2D.Double bot = new Rectangle2D.Double(x, y, gp.pDimensionWidth, gp.pDimensionHeight);
         g2.setColor(Color.RED);
-        g2.fillRect(x, y, gp.pDimensionWidth, gp.pDimensionHeight); 
-
-        System.out.println("y" + ball.moveY());
-
+        g2.fill(bot);               
     }
     
 }

@@ -10,6 +10,7 @@ import maingame.KeyHandler;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 /**
  *
  * @author belpg
@@ -22,17 +23,14 @@ public class Player1 extends Entity{
         this.gp = gp;
         this.keyH = keyH;        
         
-        solidArea = new Rectangle(0, 0, gp.pDimensionWidth, gp.pDimensionHeight);
+        solidArea = new Rectangle2D.Double(0, 0, gp.pDimensionWidth, gp.pDimensionHeight);
         
         setDefaultValues();
-    }        
+    }             
     
     public void setDefaultValues(){
         x = 140;
         y = 192;   
-        
-        solidArea.x = x;
-        solidArea.y = y;
     }      
     
     public void resetPos(){
@@ -41,6 +39,10 @@ public class Player1 extends Entity{
         
         defaultX = x;
         defaultY = y;
+    }
+    
+    public void setColision(){
+        solidArea.setFrame(x, y, gp.pDimensionWidth, gp.pDimensionHeight);
     }
     
     public void update(){
@@ -55,13 +57,12 @@ public class Player1 extends Entity{
                 y += speed;
             }            
         }
-        solidArea.x = x;
-        solidArea.y = y;
     }
     
-    public void draw(Graphics2D g2){                
+    public void draw(Graphics2D g2){                       
+        Rectangle2D.Double recp1 = new Rectangle2D.Double(x, y, gp.pDimensionWidth, gp.pDimensionHeight);
         g2.setColor(Color.white);
-        g2.fillRect(x, y, gp.pDimensionWidth, gp.pDimensionHeight);                        
+        g2.fill(recp1);                        
         
     }
 }

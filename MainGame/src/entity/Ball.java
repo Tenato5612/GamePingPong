@@ -9,6 +9,8 @@ import maingame.GamePanel;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 import java.util.Random;
 
 
@@ -21,16 +23,15 @@ public final class Ball extends Entity{
     Player1 p1;    
     Player2 p2;
     Bot bot;
-    Random random = new Random(-5);       
-    int stop = 0;
+    Random random = new Random(-5);
     public Ball(GamePanel gp, Player1 p1, Player2 p2, Bot bot){
         this.gp = gp;        
         this.p1 = p1;
         this.p2 = p2;
         this.bot = bot;
         
-        Rectangle solidArea = new Rectangle(0, 0, gp.bDimensionWidth, gp.bDimensionHeight);
-        
+        Rectangle2D solidArea = new Rectangle2D.Double(0, 0, gp.bDimensionWidth, gp.bDimensionHeight);               
+
         setDefaultValues();        
     }        
     
@@ -41,15 +42,6 @@ public final class Ball extends Entity{
         nrgBall = random.nextInt(11) - 5;        
         speedY = 5;
         speedX = 3;
-        /*
-        y = 5
-        x = 3
-        */
-        
-
-        
-        solidArea.x = x;
-        solidArea.y = y;
     }        
     
     public void resetPos(){
@@ -71,7 +63,6 @@ public final class Ball extends Entity{
             speedX = nrgBall;            
             indRng = 0;
         }
-        
         x += speedX;
         y += speedY;
         
@@ -79,57 +70,30 @@ public final class Ball extends Entity{
             speedY = -speedY;
         }
         if(x <= 0){
-            x = 400;      
-            y = 262;
-            speedX = 3;            
+            x = 400;        
+            speedX = 3;
             pt2++;
+            pt2S = "" + pt2;
             indRng = 1;
             countSpeed = 0;
         }
         
         if(x >= gp.screenWidth - gp.bDimensionWidth){
-            x = 400;  
-            y = 262;
+            x = 400;        
             speedX = 3;
             pt1++;
+            pt1S = "" + pt1;
             indRng = 1;
             countSpeed = 0;
         }
     }
     
-    public void moveGetY(){
-        y += speedY;
-        if(y <= 0 || y >= gp.screenHeight - gp.bDimensionHeight){
-            speedY = -speedY;
-        }        
-    }
-
-    public int moveY(){
-        int centerY = 262;        
-        if(moveY < centerY && stop == 0){
-            moveY--;
-        }
-        
-        if(moveY <= -52){            
-            stop = 1;
-        }
-        
-        if(moveY < centerY && stop == 1){
-            moveY++;           
-        }
-        
-        if(moveY > 58){
-            stop = 2;
-        }
-        
-        if(stop == 2){
-            moveY--;            
-        }
-        
-        return moveY;
+    public void setColision(){
+        solidArea.setFrame(x, y, gp.bDimensionWidth, gp.bDimensionHeight);
     }
     
     public void colisionCheck(){
+        /*
         solidArea.x = x;
         solidArea.y = y;
         
@@ -140,24 +104,67 @@ public final class Ball extends Entity{
            solidArea.x + p1.solidArea.width > p1.solidArea.x && 
            solidArea.y < p1.solidArea.y + p1.solidArea.height &&
            solidArea.y + (p1.solidArea.height - 150) > p1.solidArea.y){              
-            speedX = -speedX;    
-            speedY = random.nextInt(5, 10);
-            System.out.println("speedy: " + speedY);
+            speedX = -speedX;            
             countSpeed++;
             if(countSpeed == 5){
                 countSpeed = 0;
                 speedX++;
             }
-        }                
+        }     
+        */        
         
+        setColision();
+        p1.setColision();
+        p2.setColision();
+        bot.setColision();
+        
+        if(solidArea.intersects(p1.solidArea)){
+            speedX = -speedX;            
+            countSpeed++;
+            if(countSpeed == 5){
+                countSpeed = 0;
+                speedX++;
+            }
+        }
+        
+        
+        if(gp.stateMode == 1){
+            if(solidArea.intersects(p2.solidArea)){
+                speedX = -speedX;
+                countSpeed++;
+                if(countSpeed == 5){
+                     countSpeed = 0;
+                     if(speedX < 0){
+                         speedX--;
+                    } else{
+                         speedX++;
+                    }
+                }
+                
+            }
+        }
+        
+        if(gp.stateMode == 2){
+            if(solidArea.intersects(bot.solidArea)){
+                speedX = -speedX;
+                countSpeed++;
+                if(countSpeed == 5){
+                     countSpeed = 0;
+                     if(speedX < 0){
+                         speedX--;
+                    } else{
+                         speedX++;
+                    }
+                }
+            }
+        }
+        /*
         if(gp.stateMode == 1){
             if(solidArea.x < p2.solidArea.x + p2.solidArea.width &&
                solidArea.x + p2.solidArea.width + 25 > p2.solidArea.x && 
                solidArea.y < p2.solidArea.y + p2.solidArea.height &&
                solidArea.y + (p2.solidArea.height - 150) > p2.solidArea.y){
                 speedX = -speedX;
-                            speedY = random.nextInt(5, 10);
-            System.out.println("speedy: " + speedY);
                 countSpeed++;
                 if(countSpeed == 5){
                      countSpeed = 0;
@@ -168,8 +175,11 @@ public final class Ball extends Entity{
                     }
                 }
             }   
-        }               
+        }
         
+        /*Bug in "stateMode", solidArea this have problem because this.bot is null*/
+        
+        /*
         if(gp.stateMode == 2){
             if(solidArea.x < bot.solidArea.x + bot.solidArea.width &&
                solidArea.x + bot.solidArea.width + 25 > bot.solidArea.x && 
@@ -189,14 +199,14 @@ public final class Ball extends Entity{
             } 
         }
         
-
+*/
   
     }
 
     public void draw(Graphics2D g2){
+        Ellipse2D.Double eliBall = new Ellipse2D.Double(x, y, gp.bDimensionWidth, gp.bDimensionHeight);
         g2.setColor(Color.WHITE);
-        g2.fillOval(x, y, gp.bDimensionWidth, gp.bDimensionHeight);
-        System.out.println("speedX:" + speedX);
+        g2.fill(eliBall);     
     }
     
 }
