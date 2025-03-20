@@ -8,7 +8,6 @@ import java.awt.Color;
 import maingame.GamePanel;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 /**
  *
@@ -53,22 +52,20 @@ public class Bot extends Entity{
             y -= speed;
         }
         
-        if(y < 0){            
-        
+        if(y < 0){                    
         } else{            
             y -= speed;
         }
         
         if(y > gp.screenHeight - gp.pDimensionHeight){            
-            } else{
-                y += speed;
-            }
+        } else{
+            y += speed;
+        }
     }
     
     public void draw(Graphics2D g2){
         Rectangle2D.Double bot = new Rectangle2D.Double(x, y, gp.pDimensionWidth, gp.pDimensionHeight);
         g2.setColor(Color.RED);
         g2.fill(bot);               
-    }
-    
+    }    
 }

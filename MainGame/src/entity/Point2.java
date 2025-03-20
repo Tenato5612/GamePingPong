@@ -25,8 +25,8 @@ public class Point2 extends Entity{
     }
     
     public void setDefaultValues(){
-        x = 795;
-        y = 50;
+        xint = 775;
+        yint = 50;
         pt = 0;            
     }
     
@@ -34,7 +34,6 @@ public class Point2 extends Entity{
         Font font = new Font("Arial", Font.PLAIN, 30);
         g2.setFont(font);
         g2.setColor(Color.WHITE);
-        g2.drawString(ball.pt2S, (int)x, (int)y);
-
+        g2.drawString(Integer.toString(ball.pt2), xint, yint);            
     }
 }

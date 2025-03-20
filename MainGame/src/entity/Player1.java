@@ -9,7 +9,6 @@ import maingame.GamePanel;
 import maingame.KeyHandler;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 /**
  *

@@ -59,10 +59,10 @@ public class GamePanel extends JPanel implements Runnable{
         this.setFocusable(true);
         
         this.p1 = new Player1(this, keyH);
-        this.p2 = new Player2(this, keyH);  
-        this.bot = new Bot(this, ball);
+        this.p2 = new Player2(this, keyH);                          
         this.ball = new Ball(this, p1, p2, bot);
         this.bot = new Bot(this, ball);
+        this.ball.setBot(this.bot);
         this.point1 = new Point1(this, ball);
         this.point2 = new Point2(this, ball);
         this.sg = new StartGame(this, keyH);
@@ -96,7 +96,7 @@ public class GamePanel extends JPanel implements Runnable{
             }
             
             if(time > 1000000000){
-                System.out.println("Fps: " + drawCount);
+                //System.out.println("Fps: " + drawCount);
                 drawCount = 0;
                 time = 0;
             }                                                  
@@ -139,8 +139,8 @@ public class GamePanel extends JPanel implements Runnable{
             }
             ball.draw(g2);   
 
-            //point1.draw(g2);
-            //point2.draw(g2);
+            point1.draw(g2);
+            point2.draw(g2);
 
             g2.dispose();    
         }       

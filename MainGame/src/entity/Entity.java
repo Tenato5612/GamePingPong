@@ -4,7 +4,6 @@
  */
 package entity;
 
-import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -13,10 +12,11 @@ import java.awt.geom.Rectangle2D;
  */
 public class Entity {
     public double x, y;    
+    public int xint, yint;
     public double nrgBall;
-    public double indRng;
+    public double indRngX, indRngY;
     public double speed = 4;
-    public float pt1, pt2;
+    public int pt1, pt2;
     public String pt1S, pt2S;
     public double pt;
     public double speedX, speedY;

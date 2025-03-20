@@ -8,11 +8,9 @@ import maingame.GamePanel;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Random;
-
 
 /**
  *
@@ -37,8 +35,9 @@ public final class Ball extends Entity{
     
     public void setDefaultValues(){
         y = 262;
-        x = 400;        
-        indRng = 0;        
+        x = 400;
+        indRngY = 0;        
+        indRngX = 0;        
         nrgBall = random.nextInt(11) - 5;        
         speedY = 5;
         speedX = 3;
@@ -50,7 +49,8 @@ public final class Ball extends Entity{
         speedX = 3;
         pt1 = 0;
         pt2 = 0;
-        indRng = 0;        
+        indRngX = 0;    
+        indRngY = 0;
         nrgBall = random.nextInt(11) - 5;   
         countSpeed = 0;
         defaultX = x;
@@ -58,10 +58,10 @@ public final class Ball extends Entity{
     }
     
     public void moveBall(){ 
-        if(indRng == 1){
+        if(indRngX == 1){
             nrgBall = random.nextBoolean() ? 3 : -3;  
             speedX = nrgBall;            
-            indRng = 0;
+            indRngX = 0;
         }
         x += speedX;
         y += speedY;
@@ -72,20 +72,34 @@ public final class Ball extends Entity{
         if(x <= 0){
             x = 400;        
             speedX = 3;
-            pt2++;
-            pt2S = "" + pt2;
-            indRng = 1;
+            pt2++;            
+            indRngX = 1;            
             countSpeed = 0;
         }
         
         if(x >= gp.screenWidth - gp.bDimensionWidth){
             x = 400;        
             speedX = 3;
-            pt1++;
-            pt1S = "" + pt1;
-            indRng = 1;
+            pt1++;           
+            indRngX = 1;            
             countSpeed = 0;
         }
+    }
+    
+    public void randomSpeedY(){
+        if(indRngY == 1){
+            nrgBall = random.nextBoolean() ? 1 : -1;  
+            if(nrgBall > 0){
+                speedY = +speedY;
+            } else if(nrgBall < 0){
+                speedY = -speedY;
+            }
+            indRngY = 0;
+        }                
+    }
+    
+    public void setBot(Bot bot) {
+        this.bot = bot;
     }
     
     public void setColision(){
@@ -93,33 +107,16 @@ public final class Ball extends Entity{
     }
     
     public void colisionCheck(){
-        /*
-        solidArea.x = x;
-        solidArea.y = y;
-        
-        p1.solidArea.x = p1.x;
-        p1.solidArea.y = p1.y;
-                
-        if(solidArea.x < p1.solidArea.x + p1.solidArea.width &&
-           solidArea.x + p1.solidArea.width > p1.solidArea.x && 
-           solidArea.y < p1.solidArea.y + p1.solidArea.height &&
-           solidArea.y + (p1.solidArea.height - 150) > p1.solidArea.y){              
-            speedX = -speedX;            
-            countSpeed++;
-            if(countSpeed == 5){
-                countSpeed = 0;
-                speedX++;
-            }
-        }     
-        */        
-        
         setColision();
         p1.setColision();
         p2.setColision();
         bot.setColision();
+
         
         if(solidArea.intersects(p1.solidArea)){
-            speedX = -speedX;            
+            speedX = -speedX;
+            indRngY = 1;
+            randomSpeedY();
             countSpeed++;
             if(countSpeed == 5){
                 countSpeed = 0;
@@ -131,6 +128,8 @@ public final class Ball extends Entity{
         if(gp.stateMode == 1){
             if(solidArea.intersects(p2.solidArea)){
                 speedX = -speedX;
+                indRngY = 1;
+                randomSpeedY();
                 countSpeed++;
                 if(countSpeed == 5){
                      countSpeed = 0;
@@ -147,6 +146,8 @@ public final class Ball extends Entity{
         if(gp.stateMode == 2){
             if(solidArea.intersects(bot.solidArea)){
                 speedX = -speedX;
+                indRngY = 1;
+                randomSpeedY();                
                 countSpeed++;
                 if(countSpeed == 5){
                      countSpeed = 0;
@@ -157,56 +158,14 @@ public final class Ball extends Entity{
                     }
                 }
             }
-        }
-        /*
-        if(gp.stateMode == 1){
-            if(solidArea.x < p2.solidArea.x + p2.solidArea.width &&
-               solidArea.x + p2.solidArea.width + 25 > p2.solidArea.x && 
-               solidArea.y < p2.solidArea.y + p2.solidArea.height &&
-               solidArea.y + (p2.solidArea.height - 150) > p2.solidArea.y){
-                speedX = -speedX;
-                countSpeed++;
-                if(countSpeed == 5){
-                     countSpeed = 0;
-                     if(speedX < 0){
-                         speedX--;
-                    } else{
-                         speedX++;
-                    }
-                }
-            }   
-        }
-        
-        /*Bug in "stateMode", solidArea this have problem because this.bot is null*/
-        
-        /*
-        if(gp.stateMode == 2){
-            if(solidArea.x < bot.solidArea.x + bot.solidArea.width &&
-               solidArea.x + bot.solidArea.width + 25 > bot.solidArea.x && 
-               solidArea.y < bot.solidArea.y + bot.solidArea.height &&
-               solidArea.y + (bot.solidArea.height - 150) > bot.solidArea.y){
-                speedX = -speedX;
-                countSpeed++;
-                if(countSpeed == 5){
-                    countSpeed = 0;
-                    if(speedX < 0){
-                        speedX--;
-                    } else{
-                        speedX++;
-                    }
-                
-                }
-            } 
-        }
-        
-*/
-  
+        }        
     }
 
     public void draw(Graphics2D g2){
         Ellipse2D.Double eliBall = new Ellipse2D.Double(x, y, gp.bDimensionWidth, gp.bDimensionHeight);
         g2.setColor(Color.WHITE);
-        g2.fill(eliBall);     
+        g2.fill(eliBall);          
+        System.out.println("speedx: " + speedX);
     }
     
 }
